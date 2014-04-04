@@ -1,7 +1,5 @@
-# Welcome to Mortar!
+# mortar-mongo-examples
 
-Mortar is a platform-as-a-service for Hadoop.  With Mortar, you can run jobs on Hadoop using Apache Pig and Python without any special training.  You create your project using the Mortar Development Framework, deploy code using the Git revision control system, and Mortar does the rest.
+[Mortar](http://www.mortardata.com/) is a platform-as-a-service for Hadoop.  With Mortar, you can run jobs on Hadoop using Apache Pig, Python, and Java.
 
-# Getting Started
-
-For help getting started with Mortar, check out the [Mortar Help](http://help.mortardata.com/) site.
+This is a Mortar project to accompany the [Mortar Mongo Hadoop tutorial](http://help.mortardata.com/mongo_analytics_and_reporting_tutorial/introduction/how_to_use_hadoop_with_mongo). The tutorial and example code in this project will show you how to process Mongo data with Pig using Mortar and Hadoop.
