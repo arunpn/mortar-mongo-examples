@@ -6,20 +6,29 @@
  *  tweeter's local time.
  */
 
-set bson.split.write_splits false;
-
 register '../udfs/python/timeutils.py' using streaming_python as timeutils;
 
-/******* Parameters **********/
+/******* Pig Script Parameters **********/
 
-%default MONGODUMP_LOCATION '../data/tweets.bson';
+%default INPUT_PATH '../data/tweets.bson';
 %default OUTPUT_PATH '../data/tweets_by_time_block';
-%default REGEX_SEARCH_TERM '.*[Ee]xcite.*';
+
+/******* mongo-hadoop settings **********/
+
+-- Prevent mongo-hadoop from writing metadata about BSON files
+-- to your input S3 bucket. Generally, this is a good practice
+-- in case you don't have write permissions to the bucket
+-- where your input BSON is stored.
+set bson.split.write_splits false;
+
+-- Filter to only find files with extension .bson when scanning
+-- directories for which files to process
+set bson.pathfilter.class com.mongodb.hadoop.BSONPathFilter;
 
 /******* Load Data **********/
 
 -- Load up the tweets from a mongodump backup stored in S3
-tweets =  load '$MONGODUMP_LOCATION' using com.mongodb.hadoop.pig.BSONLoader(
+tweets =  load '$INPUT_PATH' using com.mongodb.hadoop.pig.BSONLoader(
              'tweet_mongo_id',
              'created_at:chararray,
               text:chararray,
@@ -29,7 +38,7 @@ tweets =  load '$MONGODUMP_LOCATION' using com.mongodb.hadoop.pig.BSONLoader(
 
 -- Find the tweets that mention our search term and have valid time information
 filtered_tweets = filter tweets
-                      by text matches '$REGEX_SEARCH_TERM'
+                      by text matches '.*[Ee]xcite.*'
                          and user.utc_offset is not null;
 
 -- Calculate local time for each tweet
