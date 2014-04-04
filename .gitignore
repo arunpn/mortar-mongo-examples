@@ -1,0 +1,13 @@
+.mortar-local
+.DS_Store
+*.pyc
+*.class
+*.log
+tmp
+logs
+illustrate-output
+udfs/java/target
+luigiscripts/client.cfg
+data/tweets_by_time_block/out
+data/.tweets*
+data/..tweets*
