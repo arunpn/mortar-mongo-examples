@@ -8,6 +8,6 @@ logs
 illustrate-output
 udfs/java/target
 luigiscripts/client.cfg
-data/tweets_by_time_block/out
+data/tweets_by_time_block
 data/.tweets*
 data/..tweets*
