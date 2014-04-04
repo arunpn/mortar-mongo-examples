@@ -60,5 +60,5 @@ ordered = order counted BY hour_block asc;
 
 /******* Store Results **********/
 
-rmf $OUTPUT_PATH;
+rmf $OUTPUT_PATH/$MORTAR_EMAIL_S3_ESCAPED;
 store ordered into '$OUTPUT_PATH/$MORTAR_EMAIL_S3_ESCAPED' using PigStorage();
