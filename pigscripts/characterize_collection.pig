@@ -35,7 +35,7 @@ REGISTER '../udfs/jython/mongo_util.py' USING jython AS mongo_util;
  If you are connecting as a user with admin privileges you should remove this line for much better
  performance.
 */
-SET mongo.input.split.create_input_splits false
+SET mongo.input.split.create_input_splits false;
 
 
 data = LOAD '$MONGO_URI.$INPUT_COLLECTION'
