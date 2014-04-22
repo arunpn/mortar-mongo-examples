@@ -14,8 +14,6 @@
     limitations under the License.
 """
 
-from pig_util import outputSchema
-
 import time
 import datetime
 
@@ -39,7 +37,7 @@ def hour_block(iso_ts):
     iso_dt = iso_timestamp_to_datetime(iso_ts)
     hour = iso_dt.hour
 
-    range_length = 2
+    range_length = 1
     range_bottom = hour - (hour % range_length)
     range_top = (range_bottom + range_length) % 24
     return '%02d - %02d' % (range_bottom, range_top)

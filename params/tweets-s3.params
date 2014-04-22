@@ -1,6 +1,5 @@
 #
 # Pig Parameters for running against the full dataset
-# of tweets stored on S3.
+# of tweets and storing output to S3.
 #
-INPUT_PATH=s3://mortar-example-data/twitter-mongo/tweets.bson
 OUTPUT_PATH=s3://mortar-example-output-data/tweets_by_time_block

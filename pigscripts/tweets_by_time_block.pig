@@ -6,7 +6,7 @@
  *  tweeter's local time.
  */
 
-register '../udfs/python/timeutils.py' using streaming_python as timeutils;
+register '../udfs/jython/timeutils.py' using jython as timeutils;
 
 /******* Pig Script Parameters **********/
 
@@ -25,14 +25,24 @@ set bson.split.write_splits false;
 -- directories for which files to process
 set bson.pathfilter.class com.mongodb.hadoop.BSONPathFilter;
 
+-- To calculate input splits Hadoop makes a call that requires admin privileges in MongoDB 2.4+.
+-- If you are connecting as a user with admin privileges you should remove this line for much better
+-- performance.
+set mongo.input.split.create_input_splits false;
+
 /******* Load Data **********/
 
--- Load up the tweets from a mongodump backup stored in S3
-tweets =  load '$INPUT_PATH' using com.mongodb.hadoop.pig.BSONLoader(
-             'tweet_mongo_id',
-             'created_at:chararray,
-              text:chararray,
-              user:tuple(utc_offset:int)');
+-- Load tweets from MongoDB
+tweets =  LOAD 'mongodb://readonly:readonly@ds035147.mongolab.com:35147/twitter.tweets'
+         USING com.mongodb.hadoop.pig.MongoLoader('created_at:chararray, text:chararray, user:tuple(utc_offset:int)');
+
+
+-- Uncomment to load tweets from a mongodump backup stored in S3
+-- tweets =  load 's3://mortar-example-data/twitter-mongo/tweets.bson' using com.mongodb.hadoop.pig.BSONLoader(
+--             'tweet_mongo_id',
+--             'created_at:chararray,
+--              text:chararray,
+--              user:tuple(utc_offset:int)');
 
 /******* Perform Calculations **********/
 

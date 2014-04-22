@@ -27,7 +27,7 @@
     Each field is listed up to five times with their five most common example values.
  */
 
-REGISTER 'mongo_util.py' USING jython AS mongo_util;
+REGISTER '../udfs/jython/mongo_util.py' USING jython AS mongo_util;
 
 /*
  To calculate input splits Hadoop makes a call that requires admin privileges in MongoDB 2.4+.

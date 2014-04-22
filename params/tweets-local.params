@@ -1,6 +1,5 @@
 #
-# Pig Parameters for running against a small local
-# set of tweets in a BSON mongodump file.
+# Pig Parameters for running locally and storing data
+# to local file system
 #
-INPUT_PATH=../data/tweets.bson
 OUTPUT_PATH=../data/tweets_by_time_block
