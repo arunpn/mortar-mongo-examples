@@ -10,7 +10,7 @@ register '../udfs/jython/timeutils.py' using jython as timeutils;
 
 /******* Pig Script Parameters **********/
 
-%default INPUT_PATH '../data/tweets.bson';
+%default INPUT_MONGO_URI 'mongodb://readonly:readonly@ds041357.mongolab.com:41357/twitter-small.tweets';
 %default OUTPUT_PATH '../data/tweets_by_time_block';
 
 /******* mongo-hadoop settings **********/
@@ -33,7 +33,7 @@ set mongo.input.split.create_input_splits false;
 /******* Load Data **********/
 
 -- Load tweets from MongoDB
-tweets =  LOAD 'mongodb://readonly:readonly@ds035147.mongolab.com:35147/twitter.tweets'
+tweets =  LOAD '$INPUT_MONGO_URI'
          USING com.mongodb.hadoop.pig.MongoLoader('created_at:chararray, text:chararray, user:tuple(utc_offset:int)');
 
 

@@ -1,7 +1,7 @@
 /**
  * Customize this template script to begin
  * working with your Mongo data. This script
- * loads data from BSON files on S3 and saves back
+ * loads data from mongodump BSON files on S3 and saves back
  * to S3. 
  */
 
