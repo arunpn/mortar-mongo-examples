@@ -21,7 +21,7 @@
             Every field that appears in any document in the collection is listed.
     2. Unique value count.  The number of unique values associated with the field.
     3. Examples. A list of the top 5 most common values. For each value includes the value, its data type
-          and how many time it occurred in the collection.
+          and how many times it occurred in the collection.
  */
 
 REGISTER '../udfs/jython/mongo_util.py' USING jython AS mongo_util;
@@ -89,6 +89,6 @@ STORE out INTO '$MONGO_URI.$OUTPUT_COLLECTION'
 
 
 -- Uncomment to store to S3 instead of MongoDB
---rmf s3n://mortar-example-output-data/$MORTAR_EMAIL_S3_ESCAPED/meta_out;
---STORE out INTO 's3n://mortar-example-output-data/$MORTAR_EMAIL_S3_ESCAPED/meta_out'
---         USING PigStorage('\t');
+-- rmf s3n://mortar-example-output-data/$MORTAR_EMAIL_S3_ESCAPED/meta_out;
+-- STORE out INTO 's3n://mortar-example-output-data/$MORTAR_EMAIL_S3_ESCAPED/meta_out'
+--          USING PigStorage('\t');
