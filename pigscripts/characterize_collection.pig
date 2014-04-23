@@ -64,9 +64,9 @@ top_5_vals = FOREACH key_vals {
     limited_vals = LIMIT ordered_vals 5;
     -- Drop keyname and remove parent relations from field names for cleaner Mongo output.
     examples = FOREACH limited_vals GENERATE
+                  val  as value,
                   type as type,
-                  val  as val,
-                  val_count as val_count;
+                  val_count as count;
     GENERATE group as keyname, examples as examples;
 }
 
@@ -77,7 +77,7 @@ join_result = JOIN unique_vals BY keyname,
 -- Clean up columns (remove duplicate keyname field)
 result =  FOREACH join_result
          GENERATE unique_vals::keyname as keyname,
-                  num_vals_count as unique_val_count,
+                  num_vals_count as unique_value_count,
                   examples;
 
 -- Sort by field name 
