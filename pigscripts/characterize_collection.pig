@@ -20,11 +20,8 @@
     1. Field Name.  Embedded fields have their parent's field name prepended to their name.
             Every field that appears in any document in the collection is listed.
     2. Unique value count.  The number of unique values associated with the field.
-    3. Example value.  An example value for the field.
-    4. Example value type.  The data type of the example value.
-    5. Value count.  The number of times the example value appeared for this field in the collection
-
-    Each field is listed up to five times with their five most common example values.
+    3. Examples. A list of the top 5 most common values. For each value includes the value, its data type
+          and how many time it occurred in the collection.
  */
 
 REGISTER '../udfs/jython/mongo_util.py' USING jython AS mongo_util;
@@ -65,7 +62,12 @@ key_vals = GROUP key_val_groups_with_counts BY (keyname);
 top_5_vals = FOREACH key_vals {
     ordered_vals = ORDER key_val_groups_with_counts BY val_count DESC;
     limited_vals = LIMIT ordered_vals 5;
-    GENERATE flatten(limited_vals);
+    -- Drop keyname and remove parent relations from field names for cleaner Mongo output.
+    examples = FOREACH limited_vals GENERATE
+                  type as type,
+                  val  as val,
+                  val_count as val_count;
+    GENERATE group as keyname, examples as examples;
 }
 
 -- Join unique vals with top 5 values
@@ -75,13 +77,11 @@ join_result = JOIN unique_vals BY keyname,
 -- Clean up columns (remove duplicate keyname field)
 result =  FOREACH join_result
          GENERATE unique_vals::keyname as keyname,
-                  num_vals_count,
-                  val,
-                  type,
-                  val_count;
+                  num_vals_count as unique_val_count,
+                  examples;
 
--- Sort by field name and number of values
-out = ORDER result BY keyname, val_count DESC;
+-- Sort by field name 
+out = ORDER result BY keyname;
 
 -- Store data to output collection in MongoDB
 STORE out INTO '$MONGO_URI.$OUTPUT_COLLECTION'
