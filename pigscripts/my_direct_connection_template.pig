@@ -2,19 +2,21 @@
  * Customize this template script to begin
  * working with your Mongo data. This script
  * loads data from BSON files on S3 and saves back
- * to S3. 
+ * to S3.
+ *
+ * This script expects the MONGO_URI variable to be set in the
+ * project configuratation via:
+ * 
+ * mortar config:set MONGO_URI='put your Mongo URI here'
  */
 
 /******* Pig Script Parameters **********/
 
--- Mongo URI to retrieve input data from a Mongo collection
--- Uses secondary nodes preferentially
 %default INPUT_COLLECTION 'your_input_collection';
-%default INPUT_MONGO_URI 'mongodb://username:password@host:port/database.$INPUT_COLLECTION?readPreference=secondary';
-
--- Mongo URI to store output data to a Mongo collection
 %default OUTPUT_COLLECTION 'your_output_collection';
-%default OUTPUT_MONGO_URI 'mongodb://username:password@host:port/database.$OUTPUT_COLLECTION';
+
+%default INPUT_MONGO_URI '$MONGO_URI.$INPUT_COLLECTION';
+%default OUTPUT_MONGO_URI '$MONGO_URI.$OUTPUT_COLLECTION';
 
 /******* mongo-hadoop settings **********/
 
