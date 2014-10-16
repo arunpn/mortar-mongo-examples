@@ -10,7 +10,7 @@ register '../udfs/jython/timeutils.py' using jython as timeutils;
 
 /******* Pig Script Parameters **********/
 
-%default INPUT_MONGO_URI 'mongodb://readonly:readonly@ds041357.mongolab.com:41357/twitter-small.tweets';
+%default INPUT_MONGO_URI 'mongodb://readonly:readonly@ds047020.mongolab.com:47020/twitter-small.tweets';
 %default OUTPUT_PATH '../data/tweets_by_time_block';
 
 /******* mongo-hadoop settings **********/

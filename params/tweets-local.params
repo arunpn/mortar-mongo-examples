@@ -2,5 +2,5 @@
 # Pig Parameters for running locally and storing data
 # to local file system
 #
-INPUT_MONGO_URI=mongodb://readonly:readonly@ds041357.mongolab.com:41357/twitter-small.tweets
+INPUT_MONGO_URI=mongodb://readonly:readonly@ds047020.mongolab.com:47020/twitter-small.tweets
 OUTPUT_PATH=../data/tweets_by_time_block
